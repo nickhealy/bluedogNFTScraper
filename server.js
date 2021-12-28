@@ -1,6 +1,5 @@
 const express = require('express')
 const path = require('path')
-const { initCronJob } = require('./crawler_scheduler')
 
 const app = express()
 
@@ -14,6 +13,5 @@ app.get('/ping', (req, res) => {
 })
   
 app.listen(PORT, () => {
-    initCronJob()
     console.log(`Listening at port ${PORT}`)
 })

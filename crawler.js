@@ -11,6 +11,7 @@ const saveNftData = data => {
 }
 
 const getNftData = async () => {
+  console.log("Beginning crawler...")
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto('https://ghostmarket.io/account/pha/P2K83Mn8suXudonzCgv5K3GgXkhToeQUgHZh2uArFpmav4a/?tab=onsale', {
@@ -43,8 +44,8 @@ const getNftData = async () => {
 
   await browser.close();
 };
-module.exports = {
-  getNftData
-}
 
+getNftData()
+  .then("Finished crawling!")
+  .catch(console.error);
 

@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "nftData": "node crawler.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
@@ -14,7 +15,6 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.2",
-    "node-cron": "^3.0.0",
     "puppeteer": "^13.0.1"
   }
 }
