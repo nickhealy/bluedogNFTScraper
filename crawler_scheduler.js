@@ -2,8 +2,9 @@ const cron = require('node-cron')
 const { getNftData } = require('./crawler')
 
 function initCronJob() {
-    cron.schedule('5 * * * *', async () =>{ 
+    cron.schedule('1 * * * *', async () =>{ 
         try {
+            console.log("starting crawler...")
             await getNftData()
         } catch (e) {
             console.error(e)
