@@ -58,7 +58,6 @@
     }
         
     fetch(`${SERVER_URL}${SCRIPT_PATH}`)
-        .then(res => res.json())
         .then(data => createCards(data))
         .catch(console.error)
 })()
