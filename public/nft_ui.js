@@ -1,5 +1,6 @@
 (function() {
-    const endpoint = 'localhost:8080'
+    const SERVER_URL = 'https://whispering-ravine-59914.herokuapp.com/'
+    const SCRIPT_PATH = 'nft_ui.js'
     const GHOST_MARKET_BASE = 'https://ghostmarket.io/'
     
     const link = href => {
@@ -56,7 +57,7 @@
         }
     }
         
-    fetch(`http://${endpoint}`)
+    fetch(`${SERVER_URL}${SCRIPT_PATH}`)
         .then(res => res.json())
         .then(data => createCards(data))
         .catch(console.error)

@@ -2,7 +2,7 @@
   "name": "nft_scraper",
   "version": "1.0.0",
   "description": "for scraping nfts from ghost market website",
-  "main": "crawler.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
