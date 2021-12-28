@@ -4,10 +4,37 @@ const path = require('path')
 
 const text = el => el.innerHTML;
 
+const GHOST_URL = 'https://ghostmarket.io/account/pha/P2K83Mn8suXudonzCgv5K3GgXkhToeQUgHZh2uArFpmav4a/?tab=onsale'
+
 const saveNftData = data => {
   const filePath = path.join(__dirname, './public/nft_data.json')
   console.log('new data :', JSON.stringify(data))
   fs.writeFileSync(filePath, JSON.stringify(data), { encoding: 'utf-8'});
+}
+
+const ensurePage = async page => {
+  try {
+    await page.goto(GHOST_URL, { waitUntil: 'networkidle0' });
+    await page.waitForSelector('.asset-card', {
+      timeout: 4000
+    });
+  } catch (e) {
+    console.error(e)
+    return false
+  }
+}
+
+const getPageData = async page => {
+  let hasData = false;
+  let attempts = 0;
+  while (attempts < 5 && hasData === false) {
+    hasData = await ensurePage(page)
+    attempts++
+    if (hasData === false) {
+       // Wait a few seconds, also a good idea to swap proxy here
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+    }
+  }
 }
 
 const getNftData = async () => {
@@ -17,13 +44,7 @@ const getNftData = async () => {
     args: ['--no-sandbox',]});
 
   const page = await browser.newPage();
-  await page.goto('https://ghostmarket.io/account/pha/P2K83Mn8suXudonzCgv5K3GgXkhToeQUgHZh2uArFpmav4a/?tab=onsale', {
-    waitUntil: 'networkidle0'
-  });
-
-  await page.waitForSelector('.asset-card', {
-    timeout: 4000
-  });
+  await getPageData(page);
 
   const nftData = await page.$$('.asset-card')
 
