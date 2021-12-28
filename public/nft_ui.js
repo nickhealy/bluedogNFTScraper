@@ -1,4 +1,4 @@
-<script>
+(function() {
     const endpoint = 'localhost:8080'
     const GHOST_MARKET_BASE = 'https://ghostmarket.io/'
     
@@ -60,4 +60,4 @@
         .then(res => res.json())
         .then(data => createCards(data))
         .catch(console.error)
-    </script>
+})()

@@ -1,19 +1,13 @@
 const express = require('express')
-const fs = require('fs')
-const path = require('path')
+const { initCronJob } = require('./crawler_scheduler')
+
 const app = express()
 
 const PORT = 8080;
 
-app.get('/', (req, res) => {
-    const pathToData = path.join(__dirname, 'nft_data.json')
-    const data = fs.readFileSync(pathToData)
-
-    console.log("Sending")
-    console.log(JSON.parse(data))
-    res.send(data)
-  })
+app.use(express.static('public'))
   
 app.listen(PORT, () => {
+    initCronJob()
     console.log(`Listening at http://localhost:${PORT}`)
 })

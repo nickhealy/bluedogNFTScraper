@@ -5,7 +5,8 @@ const path = require('path')
 const text = el => el.innerHTML;
 
 const saveNftData = data => {
-  const filePath = path.join(__dirname, 'nft_data.json')
+  const filePath = path.join(__dirname, './public/nft_data.json')
+  console.log('new data :', JSON.stringify(data))
   fs.writeFileSync(filePath, JSON.stringify(data), { encoding: 'utf-8'});
 }
 
@@ -42,9 +43,6 @@ const getNftData = async () => {
 
   await browser.close();
 };
-
-getNftData()
-
 module.exports = {
   getNftData
 }
