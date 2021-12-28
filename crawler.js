@@ -5,6 +5,7 @@ const path = require('path')
 const text = el => el.innerHTML;
 
 const GHOST_URL = 'https://ghostmarket.io/account/pha/P2K83Mn8suXudonzCgv5K3GgXkhToeQUgHZh2uArFpmav4a/?tab=onsale'
+const CONNECTION_ATTEMPTS = 5
 
 const saveNftData = data => {
   const filePath = path.join(__dirname, './public/nft_data.json')
@@ -27,7 +28,7 @@ const ensurePage = async page => {
 const getPageData = async page => {
   let hasData = false;
   let attempts = 0;
-  while (attempts < 5 && hasData === false) {
+  while (attempts < CONNECTION_ATTEMPTS && hasData === false) {
     hasData = await ensurePage(page)
     attempts++
     if (hasData === false) {
