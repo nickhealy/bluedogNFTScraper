@@ -1,17 +1,12 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs')
-const path = require('path')
+const path = require('path');
+const { uploadData } = require('./s3');
 
 const text = el => el.innerHTML;
 
 const GHOST_URL = 'https://ghostmarket.io/account/pha/P2K83Mn8suXudonzCgv5K3GgXkhToeQUgHZh2uArFpmav4a/?tab=onsale'
 const CONNECTION_ATTEMPTS = 5
-
-const saveNftData = data => {
-  const filePath = path.join(__dirname, './public/nft_data.json')
-  console.log('new data :', JSON.stringify(data))
-  fs.writeFileSync(filePath, JSON.stringify(data), { encoding: 'utf-8'});
-}
 
 const ensurePage = async page => {
   try {
@@ -65,7 +60,7 @@ const getNftData = async () => {
       })
     }
   }
-  saveNftData(parsedData)
+  uploadData(parsedData)
 
   await browser.close();
 };

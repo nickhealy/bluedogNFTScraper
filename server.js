@@ -1,7 +1,12 @@
 const express = require('express')
 const path = require('path')
-
 const app = express()
+
+// we keep env variables in heroku as well
+if (process.env.NODE_ENV == 'development') {
+  require('dotenv').config()
+  console.log(process.env.S3_REGION)
+}
 
 const PORT = process.env.PORT || 8080;
 const STATIC_FOLDER_PATH = path.join(__dirname, 'public')
