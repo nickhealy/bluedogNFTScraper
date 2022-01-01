@@ -15,7 +15,7 @@ const uploadData = data => {
         Key: FILE,
         Body: JSON.stringify(data),
         ContentType: 'application/json',
-        ACL: 'public-read'
+        // ACL: 'public-read'
     }
     
     s3.putObject(config, function(err, data) {
