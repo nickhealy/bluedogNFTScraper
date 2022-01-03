@@ -68,9 +68,6 @@
         for (const cardData of data) {
             container.appendChild(card(cardData))
         }
-        for (const cardData of data) {
-            container.appendChild(card(cardData))
-        }
 
         wpElement.appendChild(container)
     }
