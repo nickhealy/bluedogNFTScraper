@@ -19,19 +19,6 @@
         image.src = src
         return image
     }
-    
-    const cryptoPrice = amt => {
-        const price = document.createElement('h5')
-        price.innerHTML = amt
-        return price
-    }
-    
-    
-    const usdPrice = amt => {
-        const price = document.createElement('h5')
-        price.innerHTML= amt
-        return price
-    }
 
     const nftDescription = text => {
         const description = document.createElement('p')
@@ -39,13 +26,11 @@
         return description
     }
     
-    const card = ({ saleLink, name, imgSrc, priceCrypto, priceUSD, description: descriptionText}) => {
+    const card = ({ saleLink, name, imgSrc, description: descriptionText}) => {
         const linkEl = link(saleLink)
         const titleEl = title(name)
         const imageEL = image(imgSrc, saleLink)
         const description = nftDescription(descriptionText)
-        const cryptoPriceEl = cryptoPrice(priceCrypto)
-        const usdPriceEl = usdPrice(priceUSD)
 
         const container = document.createElement('div')
         container.classList.add('card-container')
@@ -53,8 +38,6 @@
         container.appendChild(titleEl)
         container.appendChild(imageEL)
         container.appendChild(description)
-        container.appendChild(cryptoPriceEl)
-        container.appendChild(usdPriceEl)
 
         linkEl.appendChild(container)
         
