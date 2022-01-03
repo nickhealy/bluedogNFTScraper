@@ -1,0 +1,28 @@
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+p {
+    padding: 5px;
+}
+
+.nft-container {
+    display: flex;
+    width: 100%;
+    height: 100%; 
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: scroll;
+    gap: 15px;
+}
+
+.card-container {
+    display: flex;
+    width: 300px;
+    height: auto;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}

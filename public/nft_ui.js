@@ -10,7 +10,7 @@
     
     const title = name => {
         const title = document.createElement('h3')
-        title.innerText = name
+        title.innerHTML = name
         return title;
     }
     
@@ -22,38 +22,57 @@
     
     const cryptoPrice = amt => {
         const price = document.createElement('h5')
-        price.innerText = amt
+        price.innerHTML = amt
         return price
     }
     
     
     const usdPrice = amt => {
         const price = document.createElement('h5')
-        price.innerText = amt
+        price.innerHTML= amt
         return price
     }
+
+    const nftDescription = text => {
+        const description = document.createElement('p')
+        description.innerText = text;
+        return description
+    }
     
-    const card = ({ saleLink, name, imgSrc, priceCrypto, priceUSD}) => {
+    const card = ({ saleLink, name, imgSrc, priceCrypto, priceUSD, description: descriptionText}) => {
         const linkEl = link(saleLink)
         const titleEl = title(name)
-        const imageEL = image(imgSrc)
+        const imageEL = image(imgSrc, saleLink)
+        const description = nftDescription(descriptionText)
         const cryptoPriceEl = cryptoPrice(priceCrypto)
         const usdPriceEl = usdPrice(priceUSD)
-        
-        linkEl.appendChild(titleEl)
-        linkEl.appendChild(imageEL)
-        linkEl.appendChild(imageEL)
-        linkEl.appendChild(cryptoPriceEl)
-        linkEl.appendChild(usdPriceEl)
+
+        const container = document.createElement('div')
+        container.classList.add('card-container')
+    
+        container.appendChild(titleEl)
+        container.appendChild(imageEL)
+        container.appendChild(description)
+        container.appendChild(cryptoPriceEl)
+        container.appendChild(usdPriceEl)
+
+        linkEl.appendChild(container)
         
         return linkEl
     }
         
     const createCards = (data) => {
-        const container = document.querySelector('#the_fullwidth_content')
+        const wpElement = document.querySelector('#the_fullwidth_content')
+        const container = document.createElement('div')
+        container.classList.add('nft-container')
         for (const cardData of data) {
             container.appendChild(card(cardData))
         }
+        for (const cardData of data) {
+            container.appendChild(card(cardData))
+        }
+
+        wpElement.appendChild(container)
     }
         
     fetch(BUCKET_URL)
