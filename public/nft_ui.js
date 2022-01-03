@@ -9,7 +9,7 @@
     }
     
     const title = name => {
-        const title = document.createElement('h3')
+        const title = document.createElement('h5')
         title.innerHTML = name
         return title;
     }
