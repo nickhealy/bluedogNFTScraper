@@ -59,7 +59,7 @@ const getNftData = async () => {
       const name = await card.$eval('.name.h-full.ellipsis', toText);
       const imgSrc = await card.$eval('#image-thumb-layer', img => img.getAttribute('src'))
       const priceCrypto = await card.$eval('.crypto', toText)
-      const formattedPriceCrypto = priceCrypto.split().slice(0, 2); // need to remove the &nbsp
+      const formattedPriceCrypto = priceCrypto.split(' ').slice(0, 2).join(' '); // need to remove the &nbsp
       const priceUSD = await card.$eval('.fiat.subtext', toText)
 
       const {
