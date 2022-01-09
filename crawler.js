@@ -67,11 +67,11 @@ const getNftData = async () => {
       } = await getAdditionalNftData(saleLink, browser)
 
       parsedData.push({
-        sale_link, 
+        sale_link: saleLink, 
         name, 
-        img_src, 
+        img_src: imgSrc, 
         price_crypto: formattedPriceCrypto, 
-        price_usd, 
+        price_usd: priceUSD, 
         description, 
         edition
       })
