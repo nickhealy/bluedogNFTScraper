@@ -3,10 +3,6 @@ a, a:hover, a:focus, a:active {
     color: inherit;
 }
 
-p {
-    padding: 5px;
-}
-
 .nft-container {
     display: flex;
     width: 100%;
@@ -15,14 +11,60 @@ p {
     align-items: center;
     justify-content: flex-start;
     overflow-x: scroll;
-    gap: 15px;
+    gap: 3%; 
+    padding: 10px 5px;
 }
 
 .card-container {
+    padding: 10px;
+    width: 30%;
     display: flex;
-    width: 300px;
     height: auto;
     align-items: center;
     flex-direction: column;
     justify-content: center;
+    background-color: #504f4f;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.card-container a {
+    width: 100%;
+    height: 100%; 
+    display: block;
+}
+
+.card-container > img {
+    max-width: 80%;
+    max-height: 80%;
+    margin-bottom: 5px;
+    display: block; /* remove extra space below image */
+}
+
+.card-container > p, .card-container > h4, .card-container > h5 {
+    color: white;
+}
+
+.card-container > button {
+    background-color: firebrick;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    -webkit-box-shadow: 0px 0px 32px -8px rgba(0,0,0,0.86); 
+    box-shadow: 0px 0px 32px -8px rgba(0,0,0,0.86);
+}
+
+.card-container > button:hover {
+    color: white
+}
+
+.card-container .price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-container .price span {
+    font-weight: bold;
 }

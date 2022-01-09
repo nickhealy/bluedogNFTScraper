@@ -2,11 +2,13 @@
     const BUCKET_URL = 'https://bluedog-nft-data.s3.us-west-1.amazonaws.com/nft_data.json'
     const GHOST_MARKET_BASE = 'https://ghostmarket.io/'
 
+    const getGhostLink = href => GHOST_MARKET_BASE + href
+
     const isOnNftPage = window.location.href.includes('nft')
     
     const link = href => {
         const linkWrapper = document.createElement('a')
-        linkWrapper.href = `${GHOST_MARKET_BASE}${href}`
+        linkWrapper.href = getGhostLink(href)
         return linkWrapper;
     }
     
@@ -28,34 +30,48 @@
         image.src = src
         return image
     }
-    
-    const cryptoPrice = amt => {
-        const price = document.createElement('h5')
-        price.innerHTML = amt
-        return price
+
+    const priceEl = (priceCrypto, priceUsd) => {
+        const container = document.createElement('h6')
+        container.innerHTML += `${priceUsd}&nbsp&nbsp<span>${priceCrypto}</span>`
+        container.classList.add('price')
+        return container
     }
     
-    
-    const usdPrice = amt => {
-        const price = document.createElement('h5')
-        price.innerHTML= amt
-        return price
-    }
 
     const nftDescription = text => {
         const description = document.createElement('p')
         description.innerText = text;
         return description
     }
+
+    const button = href => {
+        const container = document.createElement('button')
+        container.addEventListener('click', (e) => {
+            e.preventDefault()
+            // button links to ghostmarket page, as well
+            window.open(getGhostLink(href), '_blank').focus()
+        })
+        container.innerText = "SEE IT ON GHOSTMARKET"
+        return container;
+    }
     
-    const card = ({ saleLink, name, imgSrc, priceCrypto, priceUSD, edition: editionText, description: descriptionText}) => {
-        const linkEl = link(saleLink)
+    const card = ({ 
+        sale_link, 
+        name, 
+        img_src, 
+        price_crypto, 
+        price_usd, 
+        edition: editionText, 
+        description: descriptionText}
+        ) => {
+        const linkEl = link(sale_link)
         const titleEl = title(name)
         const editionEl = edition(editionText)
-        const imageEL = image(imgSrc, saleLink)
+        const imageEL = image(img_src, sale_link)
         const description = nftDescription(descriptionText)
-        const cryptoPriceEl = cryptoPrice(priceCrypto)
-        const usdPriceEl = usdPrice(priceUSD)
+        const price = priceEl(price_crypto, price_usd)
+        const buttonEl = button(sale_link)
 
         const container = document.createElement('div')
         container.classList.add('card-container')
@@ -64,12 +80,11 @@
         container.appendChild(editionEl)
         container.appendChild(imageEL)
         container.appendChild(description)
-        container.appendChild(cryptoPriceEl)
-        container.appendChild(usdPriceEl)
+        container.appendChild(price)
+        container.appendChild(buttonEl)
+        container.appendChild(linkEl)
 
-        linkEl.appendChild(container)
-        
-        return linkEl
+        return container
     }
 
     const lastUpdated = (timestamp) => {
