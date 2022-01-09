@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+require('dotenv').config()
 const { uploadData } = require('./s3');
 
 const toText = el => el.innerHTML;
@@ -67,7 +68,10 @@ const getNftData = async () => {
       })
     }
   }
-  uploadData(parsedData)
+  uploadData({
+    last_updated: Date.now(),
+    data: parsedData
+  })
 
   await browser.close();
 };
