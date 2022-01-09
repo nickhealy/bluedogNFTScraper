@@ -61,10 +61,12 @@ const getNftData = async () => {
       const priceCrypto = await card.$eval('.crypto', toText)
       const priceUSD = await card.$eval('.fiat.subtext', toText)
 
-      const description = await getNftDescription(saleLink, browser)
+      const {
+        description, edition
+      } = await getAdditionalNftData(saleLink, browser)
 
       parsedData.push({
-        saleLink, name, imgSrc, priceCrypto, priceUSD, description
+        saleLink, name, imgSrc, priceCrypto, priceUSD, description, edition
       })
     }
   }
@@ -76,13 +78,28 @@ const getNftData = async () => {
   await browser.close();
 };
 
-const getNftDescription = async (href, browser) => {
+const getAdditionalNftData= async (href, browser) => {
   const finalUrl = `${GHOST_MARKET_BASE}${href}`
   const page = await browser.newPage()
   await getPageData(page, finalUrl)
-  const description = await getContainingElement(page, '//*[@id="__layout"]/div/section/div/div[2]/div[1]/div/div[1]')
-  const text = await description.$eval('.text.ellipsis', toText)
+  const description = await getNftDescription(page);
+  const edition = await getNftEdition(page)
+  return {
+    description,
+    edition
+  }
+}
+
+const getNftDescription = async page => {
+  const descriptionEl = await getContainingElement(page, '//*[@id="__layout"]/div/section/div/div[2]/div[1]/div/div[1]')
+  const text = await descriptionEl.$eval('.text.ellipsis', toText)
   return text.split('\n')[0] // we only want text from blockchain, which is the first element
+}
+
+const getNftEdition = async page => {
+  const editionEl = await getContainingElement(page, '//*[@id="__layout"]/div/section/div/div[1]/div[2]/div/div[3]/div[3]')
+  const edition = await editionEl.$eval('span:nth-child(2)', toText)
+  return edition
 }
 
 getNftData()

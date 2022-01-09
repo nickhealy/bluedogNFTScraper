@@ -11,9 +11,16 @@
     }
     
     const title = name => {
-        const title = document.createElement('h3')
+        const title = document.createElement('h4')
         title.innerHTML = name
         return title;
+    }
+
+    const edition = editionInfo => {
+        const text = document.createElement('h5')
+        text.innerText = `Edition ${editionInfo}`
+        text.classList.add('edition-info')
+        return text
     }
     
     const image = src => {
@@ -41,9 +48,10 @@
         return description
     }
     
-    const card = ({ saleLink, name, imgSrc, priceCrypto, priceUSD, description: descriptionText}) => {
+    const card = ({ saleLink, name, imgSrc, priceCrypto, priceUSD, edition: editionText, description: descriptionText}) => {
         const linkEl = link(saleLink)
         const titleEl = title(name)
+        const editionEl = edition(editionText)
         const imageEL = image(imgSrc, saleLink)
         const description = nftDescription(descriptionText)
         const cryptoPriceEl = cryptoPrice(priceCrypto)
@@ -53,6 +61,7 @@
         container.classList.add('card-container')
     
         container.appendChild(titleEl)
+        container.appendChild(editionEl)
         container.appendChild(imageEL)
         container.appendChild(description)
         container.appendChild(cryptoPriceEl)
